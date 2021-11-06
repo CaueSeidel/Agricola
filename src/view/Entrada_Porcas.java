@@ -5,6 +5,10 @@
  */
 package view;
 
+import controller.Cadastro_porcaConttroler;
+import model.Cadastro_porca;
+import tools.CaixaDeDialogo;
+
 /**
  *
  * @author caue.seidel
@@ -14,6 +18,8 @@ public class Entrada_Porcas extends javax.swing.JFrame {
     /**
      * Creates new form Entrada_Porcas
      */
+    Cadastro_porca objPorca;
+    Cadastro_porcaConttroler porcaController; 
     public Entrada_Porcas() {
         initComponents();
     }
@@ -71,6 +77,11 @@ public class Entrada_Porcas extends javax.swing.JFrame {
 
         BTN_Cadastrar_CadastroPorca.setFont(new java.awt.Font("Arial Black", 3, 14)); // NOI18N
         BTN_Cadastrar_CadastroPorca.setText("CADASTRAR");
+        BTN_Cadastrar_CadastroPorca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_Cadastrar_CadastroPorcaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,7 +142,98 @@ public class Entrada_Porcas extends javax.swing.JFrame {
     private void TXT_Brinco_CadastroPorcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXT_Brinco_CadastroPorcaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TXT_Brinco_CadastroPorcaActionPerformed
+    
+    //botao cadastrar porca
+    private void BTN_Cadastrar_CadastroPorcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_Cadastrar_CadastroPorcaActionPerformed
+        
+        boolean validar = validarDados();
+        if(validar){
+            objPorca = guardarDados();
+            if(porcaController.incluir(objPorca)){
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Porca adicionada com sucesso: ");
+                limparTela();
 
+            }else{
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao adicionar porca ");
+
+            }
+            
+            
+        }
+        
+    }//GEN-LAST:event_BTN_Cadastrar_CadastroPorcaActionPerformed
+
+    private void limparTela(){
+        TXT_Mossa_CadastroPorca.setText("");
+        TXT_Brinco_CadastroPorca.setText("");
+        TxtDT_Entrada_CadastroPorca.setText("");
+    }
+    private Cadastro_porca guardarDados(){
+        
+        Cadastro_porca obj = new Cadastro_porca();
+        
+        obj.setCd_mossa(Integer.parseInt(TXT_Mossa_CadastroPorca.getText()));
+        obj.setBrinco(Integer.parseInt(TXT_Brinco_CadastroPorca.getText()));
+        //objPorca.setData_entrada(data_entrada);
+        
+        return obj;
+    }
+    public boolean validarDados(){
+        try{
+            
+        
+        
+        if(TXT_Mossa_CadastroPorca.equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro validar dados mossa nulla Class EntradaPorcas: ");
+            return false;
+            
+        }else{
+            try{
+               
+                /*
+                tem que testar talvez de certo os ## identificando como numeros isso vale para de baixo tbm
+                String mossa = mossa.replace(".##", "");
+                mossa = mossa.replace(",##", "");
+                */
+                int mossa = Integer.parseInt(TXT_Mossa_CadastroPorca.getText());
+            
+            }catch(NumberFormatException e){
+                
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro validar dados mossa Class EntradaPorcas: " +e);
+            return false;
+        }
+        }
+        if(TXT_Brinco_CadastroPorca.equals("")){
+           
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro validar dados mossa nulla Class EntradaPorcas: ");
+            return false;
+            
+        }else{
+            try{
+                
+                
+                int brinco = Integer.parseInt(TXT_Brinco_CadastroPorca.getText());
+            
+            }catch(NumberFormatException e){
+           
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Erro validar dados brinco Class EntradaPorcas: " +e);
+                return false;
+        }
+        }
+        
+        if(TxtDT_Entrada_CadastroPorca.equals("")){
+            
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro validar dados data nulla Class EntradaPorcas: ");
+            return false;
+
+        }
+        }catch(Exception e){
+            System.out.println(" erro validar dados: "+e );
+            return false;
+        }
+        return true;
+        
+    }
     /**
      * @param args the command line arguments
      */

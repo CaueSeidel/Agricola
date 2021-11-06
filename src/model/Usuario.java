@@ -11,7 +11,7 @@ public class Usuario {
     private int cd_usuario;
     private String nome;
     private String login;
-    private boolean senha;
+    private String senha;
 
     public int getCd_usuario() {
         return cd_usuario;
@@ -37,13 +37,15 @@ public class Usuario {
         this.login = login;
     }
 
-    public boolean isSenha() {
+    public String getSenha() {
         return senha;
     }
 
-    public void setSenha(boolean senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    
      }
             
     

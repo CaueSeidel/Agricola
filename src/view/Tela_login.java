@@ -210,7 +210,7 @@ public class Tela_login extends javax.swing.JFrame {
         //</editor-fold>
         
         try{
-         UIManager.setLookAndFeel(new FlatLightLaf());
+         //UIManager.setLookAndFeel(new FlatLightLaf());
         }catch(Exception e){System.out.println("Erro na troda de tema"); }
         
         

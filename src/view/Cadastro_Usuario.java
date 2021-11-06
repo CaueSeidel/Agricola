@@ -239,7 +239,7 @@ public class Cadastro_Usuario extends javax.swing.JFrame {
            UsuarioConttroler objUsuarioController = new UsuarioConttroler();
             
            
-            objUsuarioController.preencher(jtbUsuarios);
+            //objUsuarioController.preencher(jtbUsuarios);
 
 
         } catch (Exception ex) {
@@ -258,7 +258,7 @@ public class Cadastro_Usuario extends javax.swing.JFrame {
     private void pass2_tela_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pass2_tela_usuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pass2_tela_usuarioActionPerformed
-
+     /*
     private void jtbUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbUsuariosMousePressed
         // TODO add your handling code here:
         try {
@@ -335,6 +335,7 @@ public class Cadastro_Usuario extends javax.swing.JFrame {
         }
         
     }
+    */
     
     private boolean validarDados(){
         

@@ -37,6 +37,7 @@ public class UsuarioConttroler {
     //    this.objUsuario = objUsuario;
     //    this.jtbUsuarios = jtbUsuarios;
     //}
+    
     public boolean login(String user, String pass) {
         try {
             Connection con = Conexao.getConnection();
@@ -65,7 +66,7 @@ public class UsuarioConttroler {
 
     }
     
-    /*
+    
     public boolean alterar(Usuario objeto)
     {
         try {
@@ -109,9 +110,9 @@ public class UsuarioConttroler {
 		
     //}
 
-    //public boolean incluir(Usuario objeto) {
-    //    try {
-          /*  Connection con = Conexao.getConnection();
+    public boolean incluir(Usuario objeto) {
+        try {
+            Connection con = Conexao.getConnection();
             PreparedStatement stmt = null;
 
             if (verificarExistencia(objeto) == true) {
@@ -331,6 +332,6 @@ public class UsuarioConttroler {
         
         return objUsuario;
 
-    }*/
+    }
 
 }
