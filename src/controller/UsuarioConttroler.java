@@ -66,6 +66,7 @@ public class UsuarioConttroler {
 
     }
     
+    /*
     
     public boolean alterar(Usuario objeto)
     {
@@ -333,5 +334,5 @@ public class UsuarioConttroler {
         return objUsuario;
 
     }
-
+*/
 }

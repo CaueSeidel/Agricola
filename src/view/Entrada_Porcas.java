@@ -187,7 +187,7 @@ public class Entrada_Porcas extends javax.swing.JFrame {
         
         obj.setCd_mossa(Integer.parseInt(TXT_Mossa_CadastroPorca.getText()));
         obj.setBrinco(Integer.parseInt(TXT_Brinco_CadastroPorca.getText()));
-        //objPorca.setData_entrada(data_entrada);
+        objPorca.setData_entrada(TxtDT_Entrada_CadastroPorca.getText());
         
         return obj;
     }
