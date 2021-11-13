@@ -193,8 +193,10 @@ public class Cadastro_Usuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //
+    //botão de salvar novos usuarios   
     
-    //botão de salvar novos usuarios    
+    //nao ta funcionando nada 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         boolean retorno = validarDados();
         
@@ -203,7 +205,9 @@ public class Cadastro_Usuario extends javax.swing.JFrame {
             Usuario usuario = guardarDados();
             
             UsuarioConttroler objController = new UsuarioConttroler();
-            if(objController.incluir(usuario)){
+            
+            //aqui vai um if
+            objController.incluir(usuario);
             
             txtLogin_tela_usuario.setText("");
             txtNome_tela_usuario.setText("");
@@ -211,9 +215,9 @@ public class Cadastro_Usuario extends javax.swing.JFrame {
             pass2_tela_usuario.setText("");
             atualizarTabela();
             CaixaDeDialogo.obterinstancia().exibirMensagem("Usuario criado com sucesso");
-            }else {
+            
+            //aqui vai o else
                 CaixaDeDialogo.obterinstancia().exibirMensagem("Não criado");
-            }
         }
         
         
@@ -258,7 +262,11 @@ public class Cadastro_Usuario extends javax.swing.JFrame {
     private void pass2_tela_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pass2_tela_usuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pass2_tela_usuarioActionPerformed
-     /*
+     
+    
+    //SO PARA SAIR O ERRO
+    private void jtbUsuariosMousePressed(java.awt.event.MouseEvent evt) { }
+    /*
     private void jtbUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbUsuariosMousePressed
         // TODO add your handling code here:
         try {
