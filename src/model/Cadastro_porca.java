@@ -12,7 +12,7 @@ public class Cadastro_porca {
     private int cd_mossa;
     private String data_entrada;
     private String data_cobertura;
-    private int brinco;
+    private String brinco;
 
     public int getCodigo() {
         return codigo;
@@ -46,11 +46,11 @@ public class Cadastro_porca {
         this.data_cobertura = data_cobertura;
     }
 
-    public int getBrinco() {
+    public String getBrinco() {
         return brinco;
     }
 
-    public void setBrinco(int brinco) {
+    public void setBrinco(String brinco) {
         this.brinco = brinco;
     }
     

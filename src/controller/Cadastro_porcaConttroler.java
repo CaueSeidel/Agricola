@@ -6,10 +6,13 @@
 package controller;
 import database.Conexao;
 import java.sql.Connection;
+
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
+
 import model.Cadastro_porca;
 import tools.CaixaDeDialogo;
 
@@ -24,22 +27,30 @@ public class Cadastro_porcaConttroler {
             
         Connection con = Conexao.getConnection();
         PreparedStatement stmt = null;
-        ResultSet rs = null;
+        
         StringBuilder sql = new StringBuilder();
 
         //tem aquele outro campo tem de ver a posicao dele e tal se for not null etc
-        sql.append(" insert into cadastro_porca values default , ? , ? , ?");
+        sql.append(" insert into cadastro_porca values (22 , ? , ? , ?)");
+        
         stmt = con.prepareStatement(sql.toString());
         stmt.setInt(1, objeto.getCd_mossa());
-        stmt.setInt(2, objeto.getBrinco());
-        SimpleDateFormat sd = new SimpleDateFormat();
+       
+           System.out.println(""+objeto.getData_entrada());
+        java.sql.Date data = java.sql.Date.valueOf(objeto.getData_entrada());
         
-        stmt.setDate(3, objeto.getData_entrada());
         
-        stmt.executeQuery();
+        stmt.setDate(2, data);
+         stmt.setString(3, objeto.getBrinco());
+            System.out.println("data incluir "+data);
+        
+        stmt.executeUpdate();
+        
         return true;
         
-        }catch(SQLException e){
+        
+        
+        }catch(SQLException  e){
             CaixaDeDialogo.obterinstancia().exibirMensagem("Erro incluir cadastroporcaController "+e);
             return false;
         

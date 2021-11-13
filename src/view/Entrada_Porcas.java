@@ -6,6 +6,12 @@
 package view;
 
 import controller.Cadastro_porcaConttroler;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import model.Cadastro_porca;
 import tools.CaixaDeDialogo;
 
@@ -157,7 +163,11 @@ public class Entrada_Porcas extends javax.swing.JFrame {
         
         boolean validar = validarDados();
         if(validar){
+            objPorca = new Cadastro_porca();
             objPorca = guardarDados();
+            
+            porcaController = new Cadastro_porcaConttroler();
+            
             if(porcaController.incluir(objPorca)){
                 CaixaDeDialogo.obterinstancia().exibirMensagem("Porca adicionada com sucesso: ");
                 limparTela();
@@ -181,15 +191,41 @@ public class Entrada_Porcas extends javax.swing.JFrame {
         TXT_Brinco_CadastroPorca.setText("");
         TxtDT_Entrada_CadastroPorca.setText("");
     }
-    private Cadastro_porca guardarDados(){
-        
+    private Cadastro_porca guardarDados() {
+        try{
         Cadastro_porca obj = new Cadastro_porca();
         
         obj.setCd_mossa(Integer.parseInt(TXT_Mossa_CadastroPorca.getText()));
-        obj.setBrinco(Integer.parseInt(TXT_Brinco_CadastroPorca.getText()));
-        objPorca.setData_entrada(TxtDT_Entrada_CadastroPorca.getText());
+        obj.setBrinco(TXT_Brinco_CadastroPorca.getText());
+        
+        
+        
+        //Date data = new SimpleDateFormat().parse(TxtDT_Entrada_CadastroPorca.getText());
+          //  System.out.println(" data date " + data);
+          
+          
+        //String data = TxtDT_Entrada_CadastroPorca.getText().replace("/", "-");
+        
+        
+        Date dataFormatada = new SimpleDateFormat("dd/MM/yyyy").parse(TxtDT_Entrada_CadastroPorca.getText());
+            System.out.println(""+dataFormatada);
+       
+        String dataCerta = new SimpleDateFormat("yyyy-MM-dd").format(dataFormatada);
+            System.out.println(""+dataCerta);
+        obj.setData_entrada(dataCerta);
+            
+       
+           
+          /*
+          DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+          Date = dtf.format(LocalDate());
+        */
         
         return obj;
+        }catch(Exception e){
+            System.out.println("erro " +e);
+            return null;
+        }
     }
     public boolean validarDados(){
         try{
