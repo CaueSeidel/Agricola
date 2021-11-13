@@ -38,6 +38,10 @@ public class UsuarioConttroler {
     //    this.jtbUsuarios = jtbUsuarios;
     //}
     
+    public Usuario incluir(Usuario objeto){
+        return objeto;
+    }
+    
     public boolean login(String user, String pass) {
         try {
             Connection con = Conexao.getConnection();

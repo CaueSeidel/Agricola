@@ -11,7 +11,27 @@ public class Registro_parto {
     private int codigo;
     private int nascidos_mortos;
     private int nascidos_vivos;
-    private int peso_leitoes;
+    private float peso_leitoes;
+    private String data_real_patrto;
+    private int cd_porca;
+
+    public String getData_real_patrto() {
+        return data_real_patrto;
+    }
+
+    public void setData_real_patrto(String data_real_patrto) {
+        this.data_real_patrto = data_real_patrto;
+    }
+
+    public int getCd_porca() {
+        return cd_porca;
+    }
+
+    public void setCd_porca(int cd_porca) {
+        this.cd_porca = cd_porca;
+    }
+    
+    
 
     public int getCodigo() {
         return codigo;
@@ -37,11 +57,11 @@ public class Registro_parto {
         this.nascidos_vivos = nascidos_vivos;
     }
 
-    public int getPeso_leitoes() {
+    public float getPeso_leitoes() {
         return peso_leitoes;
     }
 
-    public void setPeso_leitoes(int peso_leitoes) {
+    public void setPeso_leitoes(float peso_leitoes) {
         this.peso_leitoes = peso_leitoes;
     }
     
