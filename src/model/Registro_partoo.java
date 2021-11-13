@@ -6,7 +6,7 @@
 package model;
 
 
-public class Registro_parto {
+public class Registro_partoo {
     
     private int codigo;
     private int nascidos_mortos;

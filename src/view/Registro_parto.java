@@ -5,6 +5,12 @@
  */
 package view;
 
+import java.sql.SQLException;
+import tools.CaixaDeDialogo;
+import tools.Combos;
+import controller.Registro_partoConttroler;
+import model.Registro_partoo;
+
 /**
  *
  * @author caue.seidel
@@ -14,10 +20,26 @@ public class Registro_parto extends javax.swing.JFrame {
     /**
      * Creates new form Registro_parto
      */
+    Combos comboBox;
+    Registro_partoConttroler rgController;
+    
+    Registro_parto rgParto;
     public Registro_parto() {
         initComponents();
+        atualizarTabela();
+        
+        
     }
-
+    
+    public void atualizarTabela(){
+        
+        comboBox = new Combos(jCboxCodigo);
+        try{
+            comboBox.PreencheCombo("select  codigo, brinco from cadastro_porca");
+        }catch(SQLException e){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao preencher CB_TV"+e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,10 +55,12 @@ public class Registro_parto extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         txtPesoRegistroParto = new javax.swing.JTextField();
         txtNascMortosRegistroParto = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        txtDtParto = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jCboxCodigo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,14 +86,6 @@ public class Registro_parto extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel9.setText("Nascidos mortos");
 
-        jTextField3.setFont(new java.awt.Font("Arial Black", 2, 14)); // NOI18N
-        jTextField3.setText("????????????");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-
         txtPesoRegistroParto.setFont(new java.awt.Font("Arial Black", 2, 14)); // NOI18N
         txtPesoRegistroParto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +108,16 @@ public class Registro_parto extends javax.swing.JFrame {
             }
         });
 
+        try {
+            txtDtParto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel2.setText("Data parto");
+
+        jCboxCodigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,9 +135,12 @@ public class Registro_parto extends javax.swing.JFrame {
                         .addGap(81, 81, 81)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPesoRegistroParto, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtDtParto, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtPesoRegistroParto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))
+                            .addComponent(jCboxCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(70, 70, 70)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,9 +159,9 @@ public class Registro_parto extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNascVivosRegistroParto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNascVivosRegistroParto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCboxCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -141,7 +170,11 @@ public class Registro_parto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPesoRegistroParto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNascMortosRegistroParto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(27, 27, 27)
+                .addComponent(txtDtParto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
@@ -153,10 +186,6 @@ public class Registro_parto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNascVivosRegistroPartoActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
     private void txtPesoRegistroPartoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesoRegistroPartoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPesoRegistroPartoActionPerformed
@@ -166,9 +195,50 @@ public class Registro_parto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNascMortosRegistroPartoActionPerformed
     //btn salvar registro porcas 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        boolean validacao = validarDados();
+        if(validacao){
+            rgParto = new Registro_parto();
+            rgParto = guardarDados();
+            
+        }else{
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao validar");
 
+        }
+                
+                
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+    public Registro_parto guardarDados(){
+        rgParto = new Registro_parto();
+    }
+    
+    public boolean validarDados(){
+        if(txtNascMortosRegistroParto.equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Nullo");
+            return false;
+        }
+        if(txtNascVivosRegistroParto.equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Nullo");
+            return false;
+        }
+        if(txtPesoRegistroParto.equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Nullo");
+            return false;
+        }
+        if(txtDtParto.equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Nullo");
+            return false;
+        }
+        Combos c = (Combos) jCboxCodigo.getSelectedItem();
+        if(c == null){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Nullo");
+
+        }
+        return true;
+            
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -206,12 +276,14 @@ public class Registro_parto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jCboxCodigo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JFormattedTextField txtDtParto;
     private javax.swing.JTextField txtNascMortosRegistroParto;
     private javax.swing.JTextField txtNascVivosRegistroParto;
     private javax.swing.JTextField txtPesoRegistroParto;
