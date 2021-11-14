@@ -36,13 +36,13 @@ public class Cadastro_porcaConttroler {
         stmt = con.prepareStatement(sql.toString());
         stmt.setInt(1, objeto.getCd_mossa());
        
-           System.out.println(""+objeto.getData_entrada());
+           //System.out.println(""+objeto.getData_entrada());
         java.sql.Date data = java.sql.Date.valueOf(objeto.getData_entrada());
-        
+       
         
         stmt.setDate(2, data);
-         stmt.setString(3, objeto.getBrinco());
-            System.out.println("data incluir "+data);
+        stmt.setString(3, objeto.getBrinco());
+            //System.out.println("data incluir "+data);
         
         stmt.executeUpdate();
         

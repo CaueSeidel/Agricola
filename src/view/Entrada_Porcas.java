@@ -47,6 +47,7 @@ public class Entrada_Porcas extends javax.swing.JFrame {
         TXT_Brinco_CadastroPorca = new javax.swing.JTextField();
         BTN_Cadastrar_CadastroPorca = new javax.swing.JButton();
         TxtDT_Entrada_CadastroPorca = new javax.swing.JFormattedTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,6 +96,13 @@ public class Entrada_Porcas extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("X");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,11 +132,17 @@ public class Entrada_Porcas extends javax.swing.JFrame {
                                     .addGap(78, 78, 78)))
                             .addComponent(TxtDT_Entrada_CadastroPorca, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addGap(13, 13, 13)
                 .addComponent(lbl_bemvindo_tela_login5)
                 .addGap(57, 57, 57)
                 .addComponent(lbl_bemvindo_tela_login2)
@@ -185,6 +199,10 @@ public class Entrada_Porcas extends javax.swing.JFrame {
     private void TxtDT_Entrada_CadastroPorcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtDT_Entrada_CadastroPorcaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtDT_Entrada_CadastroPorcaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void limparTela(){
         TXT_Mossa_CadastroPorca.setText("");
@@ -323,6 +341,7 @@ public class Entrada_Porcas extends javax.swing.JFrame {
     private javax.swing.JTextField TXT_Brinco_CadastroPorca;
     private javax.swing.JTextField TXT_Mossa_CadastroPorca;
     private javax.swing.JFormattedTextField TxtDT_Entrada_CadastroPorca;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lbl_bemvindo_tela_login2;
     private javax.swing.JLabel lbl_bemvindo_tela_login3;
     private javax.swing.JLabel lbl_bemvindo_tela_login4;
