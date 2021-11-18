@@ -32,14 +32,14 @@ public class Registro_partoConttroler {
             java.sql.Date date = java.sql.Date.valueOf(objeto.getData_real_patrto());
             
             StringBuilder sql = new StringBuilder();
-            sql.append("insert into registro_parto values(1, ?, ?, ?, ?, ?)");
+            sql.append("insert into registro_parto values(default, ?, ?, ?, ?, ?)");
             stmt = con.prepareStatement(sql.toString());
             
             stmt.setInt(1, objeto.getNascidos_mortos());
             stmt.setInt(2, objeto.getNascidos_vivos());
             stmt.setFloat(3, objeto.getPeso_leitoes());
-            stmt.setDate(4, date);
-            stmt.setInt(5, objeto.getCd_porca());
+            stmt.setInt(4, objeto.getCd_porca());
+            stmt.setDate(5, date);
             
             stmt.executeUpdate();
             return true;
@@ -69,7 +69,7 @@ public class Registro_partoConttroler {
         try{
         ResultSet result = null;
         StringBuilder wSql = new StringBuilder();
-        wSql.append(" select  r.codigo, r.nascidos_mortos, r.nascidos_vivos, r.peso_leitoes,  ");
+        wSql.append(" select  r.codigo, r.nascidos_vivos, r.peso_leitoes, r.nascidos_mortos,  ");
         wSql.append(" to_char(r.data_real_parto, 'dd / mm / yyyy'), r.cd_porca ");
         wSql.append(" from registro_parto r ");
 
@@ -82,8 +82,8 @@ public class Registro_partoConttroler {
 
                 linha.add(result.getInt(1));
                 linha.add(result.getInt(2));
-                linha.add(result.getInt(3));
-                linha.add(result.getFloat(4));
+                linha.add(result.getFloat(3));
+                linha.add(result.getInt(4));
                 linha.add(result.getString(5));
                 linha.add(result.getInt(6));
 
@@ -119,6 +119,7 @@ public class Registro_partoConttroler {
         jtbUsuarios.setSelectionMode(0);
 
         // redimensiona as colunas de uma tabela
+        /*
         TableColumn column = null;
         for (int i = 0; i <= 2; i++) {
             column
@@ -134,7 +135,7 @@ public class Registro_partoConttroler {
                     column.setPreferredWidth(10);
                     break;
             }
-        }
+        }*/
 
         //função para deixar a tabela zebrada
         jtbUsuarios.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {

@@ -92,8 +92,11 @@ public class Registro_parto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTabbedPane1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+
         jInternalFrame1.setVisible(true);
 
+        jtbRegistroParto.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jtbRegistroParto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -107,6 +110,7 @@ public class Registro_parto extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jtbRegistroParto);
 
+        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel3.setText("Registros");
 
         jButton3.setText("X");
@@ -138,7 +142,7 @@ public class Registro_parto extends javax.swing.JFrame {
                         .addGap(21, 21, 21)
                         .addComponent(jLabel3))
                     .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -151,6 +155,11 @@ public class Registro_parto extends javax.swing.JFrame {
         jLabel5.setText("Codigo");
 
         jCboxCodigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCboxCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCboxCodigoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel7.setText("Peso");
@@ -162,13 +171,15 @@ public class Registro_parto extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Data parto");
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        jLabel2.setText("Data do parto");
 
         try {
             txtDtParto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtDtParto.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel1.setText("Registro Parto");
@@ -279,7 +290,7 @@ public class Registro_parto extends javax.swing.JFrame {
                             .addComponent(txtPesoRegistroParto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(68, 68, 68)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(txtDtParto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(61, 61, 61))
         );
@@ -329,6 +340,7 @@ public class Registro_parto extends javax.swing.JFrame {
             if(rgController.inserir(rgParto)){
                 CaixaDeDialogo.obterinstancia().exibirMensagem("Registro adicionado com sucesso");
                 limparTela();
+                atualizarTabela();
                 
             }else  {
                 CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao adicionar registro");
@@ -352,6 +364,10 @@ public class Registro_parto extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jCboxCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboxCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCboxCodigoActionPerformed
     public Registro_partoo guardarDados(){
         try{
         Registro_partoo objeto = new Registro_partoo();
