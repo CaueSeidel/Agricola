@@ -5,6 +5,9 @@
  */
 package view;
 
+import java.sql.SQLException;
+import tools.Combos;
+
 /**
  *
  * @author caue.seidel
@@ -14,9 +17,23 @@ public class Caliper extends javax.swing.JFrame {
     /**
      * Creates new form Caliper
      */
+    Combos jcb_periodo;
     public Caliper() {
         initComponents();
+        preencheComboPeriodo();
     }
+    
+    public void preencheComboPeriodo(){
+        try{
+        jcb_periodo = new Combos(jCB_periodo_caliper);
+        jcb_periodo.PreencheCombo("select id_situacao, periodo from situacao");
+        }catch(SQLException e){
+            System.out.println(""+e);
+        }
+    }
+    
+   
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,42 +45,26 @@ public class Caliper extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        JCB_Situacao_Caliper = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        JCB_Periodo_Caliper = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         Txt_Codigo_Caliper = new javax.swing.JTextField();
         BTN_Salvar_Caliper = new javax.swing.JButton();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jCB_periodo_caliper = new javax.swing.JComboBox<>();
+        jcb_situacao_caliper = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel1.setText("Caliper");
 
-        JCB_Situacao_Caliper.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        JCB_Situacao_Caliper.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Magra", "Ideal", "Gorda" }));
-        JCB_Situacao_Caliper.setToolTipText("");
-        JCB_Situacao_Caliper.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JCB_Situacao_CaliperActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel4.setText("Situação");
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel5.setText("Codigo");
-
-        JCB_Periodo_Caliper.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        JCB_Periodo_Caliper.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "110 Dias", "Cobertura", "70 Dias" }));
-        JCB_Periodo_Caliper.setToolTipText("");
-        JCB_Periodo_Caliper.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JCB_Periodo_CaliperActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel6.setText("Infome o Periodo");
@@ -84,6 +85,19 @@ public class Caliper extends javax.swing.JFrame {
             }
         });
 
+        jFormattedTextField1.setText("jFormattedTextField1");
+
+        jLabel2.setText("Data");
+
+        jCB_periodo_caliper.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCB_periodo_caliper.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCB_periodo_caliperItemStateChanged(evt);
+            }
+        });
+
+        jcb_situacao_caliper.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,16 +110,19 @@ public class Caliper extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(115, 115, 115)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Txt_Codigo_Caliper)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(JCB_Situacao_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(JCB_Periodo_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(104, 104, 104)
+                                .addComponent(jLabel2))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Txt_Codigo_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(99, 99, 99)
+                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jCB_periodo_caliper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcb_situacao_caliper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(BTN_Salvar_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
         );
@@ -115,36 +132,28 @@ public class Caliper extends javax.swing.JFrame {
                 .addGap(68, 68, 68)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Txt_Codigo_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Txt_Codigo_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JCB_Periodo_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCB_periodo_caliper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(JCB_Situacao_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(BTN_Salvar_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jcb_situacao_caliper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(BTN_Salvar_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void JCB_Situacao_CaliperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCB_Situacao_CaliperActionPerformed
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JCB_Situacao_CaliperActionPerformed
-
-    private void JCB_Periodo_CaliperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCB_Periodo_CaliperActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JCB_Periodo_CaliperActionPerformed
 
     private void Txt_Codigo_CaliperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_Codigo_CaliperActionPerformed
         // TODO add your handling code here:
@@ -153,6 +162,40 @@ public class Caliper extends javax.swing.JFrame {
     private void BTN_Salvar_CaliperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_Salvar_CaliperActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BTN_Salvar_CaliperActionPerformed
+    private void atualizarCombo(int sit){
+        try{
+            String sql = "select id_situacao, situacao from situacao where id_situacao ="+sit;
+            
+            jcb_periodo = new Combos(jcb_situacao_caliper);
+            jcb_periodo.PreencheCombo(sql);
+            
+            
+            
+        }catch(SQLException e){
+            System.out.println("erro "+e);
+        }
+        
+    }
+//quando o periodo e selecionado
+    private void jCB_periodo_caliperItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCB_periodo_caliperItemStateChanged
+        try{
+            if(jCB_periodo_caliper.getSelectedIndex() > 0){
+                Combos c = (Combos) jCB_periodo_caliper.getSelectedItem();
+                int selecionado = Integer.parseInt(c.getCodigo());
+                
+                atualizarCombo(selecionado);
+                
+                
+            }
+            
+            
+            
+        }catch(Exception e){
+            
+        }
+        
+        
+    }//GEN-LAST:event_jCB_periodo_caliperItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -191,12 +234,14 @@ public class Caliper extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTN_Salvar_Caliper;
-    private javax.swing.JComboBox<String> JCB_Periodo_Caliper;
-    private javax.swing.JComboBox<String> JCB_Situacao_Caliper;
     private javax.swing.JTextField Txt_Codigo_Caliper;
+    private javax.swing.JComboBox<String> jCB_periodo_caliper;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JComboBox<String> jcb_situacao_caliper;
     // End of variables declaration//GEN-END:variables
 }
