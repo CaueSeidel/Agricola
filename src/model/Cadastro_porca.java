@@ -13,7 +13,18 @@ public class Cadastro_porca {
     private String data_entrada;
     private String data_cobertura;
     private String brinco;
+    private boolean abate;
 
+    public boolean isAbate() {
+        return abate;
+    }
+
+    public void setAbate(boolean abate) {
+        this.abate = abate;
+    }
+
+    
+    
     public int getCodigo() {
         return codigo;
     }

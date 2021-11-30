@@ -5,19 +5,92 @@
  */
 package view;
 
+import controller.AbateConttroler;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import tools.Combos;
+import model.Abate;
+import tools.CaixaDeDialogo;
+
+
 /**
  *
  * @author caue.seidel
  */
-public class Abate extends javax.swing.JFrame {
+public class AbateView extends javax.swing.JFrame {
 
     /**
-     * Creates new form Abate
+     * Creates new form AbateView
      */
-    public Abate() {
+    AbateConttroler abateCon;
+    Abate abateObj;
+    Combos combosObj,combosObj2 ;
+    public AbateView() {
         initComponents();
+        preencherCombos();
     }
-
+    
+    private void preencherCombos(){
+        try{
+        combosObj = new Combos(jCb_codigo);
+        combosObj.PreencheCombo("select codigo, brinco from cadastro_porca where abate = 'false' ");
+        
+        combosObj2 = new Combos(jCb_motivo);
+        combosObj2.PreencheCombo("select id, ds_saida from saida ");
+        
+        
+        
+        }catch(SQLException e){
+            System.out.println("err"+e);
+        }
+               
+        
+    }
+    
+    private Abate guardarDados() throws ParseException{
+        abateObj = new Abate();
+        
+        Combos c = (Combos)jCb_codigo.getSelectedItem();
+        Combos c1 = (Combos)jCb_motivo.getSelectedItem();
+        int a = Integer.parseInt(c.getCodigo());
+        int b = Integer.parseInt(c1.getCodigo());
+        
+        Date dataFormatada = new SimpleDateFormat("dd/MM/yyyy").parse(dt_saida.getText());
+        String dataCerta = new SimpleDateFormat("yyyy-MM-dd").format(dataFormatada);
+        
+        
+        
+        abateObj.setCd_porca(a);
+        abateObj.setData_saida(dataCerta);
+        abateObj.setId_saida(b);
+        return abateObj;
+    }
+    
+    private boolean validarDados(){
+        Combos c = (Combos)jCb_codigo.getSelectedItem();
+        Combos c1 = (Combos)jCb_motivo.getSelectedItem();
+        
+        if(c.equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Codigo nao esta selecionado");
+            return false;
+        }
+        if(c1.equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Motivo nao esta selecionado");
+            return false;       
+        }
+        
+        if(dt_saida.equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Dt saida nao esta preenchida");
+            return false;        
+        }
+                
+        return true;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,11 +104,11 @@ public class Abate extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txt_codigo_abate = new javax.swing.JTextField();
-        JCB_Motivo_Abate = new javax.swing.JComboBox<>();
-        txt_Data_Abate = new javax.swing.JFormattedTextField();
         BTN_Salvar_Abate = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jCb_codigo = new javax.swing.JComboBox<>();
+        dt_saida = new javax.swing.JFormattedTextField();
+        jCb_motivo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,28 +123,6 @@ public class Abate extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel4.setText("Codigo");
-
-        txt_codigo_abate.setFont(new java.awt.Font("Arial Black", 2, 14)); // NOI18N
-        txt_codigo_abate.setText("jTextField1");
-        txt_codigo_abate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_codigo_abateActionPerformed(evt);
-            }
-        });
-
-        JCB_Motivo_Abate.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        JCB_Motivo_Abate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lesão", "Falsa gestação", "Limite de partos" }));
-        JCB_Motivo_Abate.setToolTipText("");
-        JCB_Motivo_Abate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JCB_Motivo_AbateActionPerformed(evt);
-            }
-        });
-
-        txt_Data_Abate.setText("DATE");
-        txt_Data_Abate.setEnabled(false);
-        txt_Data_Abate.setFocusable(false);
-        txt_Data_Abate.setFont(new java.awt.Font("Arial Black", 3, 14)); // NOI18N
 
         BTN_Salvar_Abate.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
         BTN_Salvar_Abate.setText("Salvar");
@@ -88,6 +139,16 @@ public class Abate extends javax.swing.JFrame {
             }
         });
 
+        jCb_codigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        try {
+            dt_saida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jCb_motivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,21 +160,23 @@ public class Abate extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(BTN_Salvar_Abate, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_Data_Abate, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(dt_saida, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txt_codigo_abate, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JCB_Motivo_Abate, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jCb_motivo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jCb_codigo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BTN_Salvar_Abate, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButton1)))))
                 .addGap(83, 83, 83))
         );
         layout.setVerticalGroup(
@@ -125,17 +188,17 @@ public class Abate extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addGap(15, 15, 15)
-                .addComponent(txt_codigo_abate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCb_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txt_Data_Abate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addComponent(dt_saida, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(JCB_Motivo_Abate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
+                .addGap(28, 28, 28)
+                .addComponent(jCb_motivo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
                 .addComponent(BTN_Salvar_Abate, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(62, Short.MAX_VALUE))
         );
@@ -143,23 +206,37 @@ public class Abate extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_codigo_abateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigo_abateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_codigo_abateActionPerformed
-
-    private void JCB_Motivo_AbateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCB_Motivo_AbateActionPerformed
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JCB_Motivo_AbateActionPerformed
-
+    
+    
+    //botao de salvar abate
     private void BTN_Salvar_AbateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_Salvar_AbateActionPerformed
-        // TODO add your handling code here:
+        
+        
+        
     }//GEN-LAST:event_BTN_Salvar_AbateActionPerformed
     //botao de teste
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String sla = JCB_Motivo_Abate.toString();
-        
-        System.out.println("dado dentro do motivo da lesao" + sla);
+       try {
+        boolean validar = validarDados();
+        if(validar){
+            
+            abateObj = new Abate();
+           
+               abateObj = guardarDados();
+          
+               
+           
+            abateCon = new AbateConttroler();
+                    
+            if(abateCon.inserir(abateObj)){
+                System.out.println("inserido com sucesso");
+            }else{
+            System.out.println("erro ao inserir");
+            
+        }}
+             } catch (ParseException ex) {System.out.println("erro "+ex.getMessage());
+            
+        }
                 
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -194,20 +271,20 @@ public class Abate extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Abate().setVisible(true);
+                new AbateView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTN_Salvar_Abate;
-    private javax.swing.JComboBox<String> JCB_Motivo_Abate;
+    private javax.swing.JFormattedTextField dt_saida;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jCb_codigo;
+    private javax.swing.JComboBox<String> jCb_motivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JFormattedTextField txt_Data_Abate;
-    private javax.swing.JTextField txt_codigo_abate;
     // End of variables declaration//GEN-END:variables
 }

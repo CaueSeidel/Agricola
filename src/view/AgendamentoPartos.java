@@ -5,6 +5,18 @@
  */
 package view;
 
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import tools.Combos;
+import java.text.NumberFormat;
+import java.util.Calendar;
+import tools.CaixaDeDialogo;
+import model.Agendamento;
+
+import controller.AgendamentoConttroler;
+
+
 /**
  *
  * @author caue.seidel
@@ -14,10 +26,24 @@ public class AgendamentoPartos extends javax.swing.JFrame {
     /**
      * Creates new form AgendamentoPartos
      */
+    Combos jcb_periodo;
+    Agendamento objAgenda;
+    AgendamentoConttroler controllerAgenda;
     public AgendamentoPartos() {
         initComponents();
+        preencherCombo();
     }
-
+    
+    private void preencherCombo(){
+        
+        try{
+        jcb_periodo = new Combos(jcb_porca_agendamento_parto);
+        jcb_periodo.PreencheCombo("select codigo, brinco from cadastro_porca");
+        }catch(SQLException e){
+            System.out.println("erro" +e);
+        }  
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,10 +55,13 @@ public class AgendamentoPartos extends javax.swing.JFrame {
 
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        TxtDt_Cob_Agendamento = new javax.swing.JFormattedTextField();
-        TxtDt_Data_Parto = new javax.swing.JFormattedTextField();
         BTN_Salvar_Agendamento = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jcb_porca_agendamento_parto = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        dt_cobertura_agendamento = new javax.swing.JFormattedTextField();
+        jButton1 = new javax.swing.JButton();
+        lblDataParto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,16 +70,6 @@ public class AgendamentoPartos extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel4.setText("Data da cobertura");
-
-        TxtDt_Cob_Agendamento.setText("DATE");
-        TxtDt_Cob_Agendamento.setEnabled(false);
-        TxtDt_Cob_Agendamento.setFocusable(false);
-        TxtDt_Cob_Agendamento.setFont(new java.awt.Font("Arial Black", 3, 14)); // NOI18N
-
-        TxtDt_Data_Parto.setText("DATE");
-        TxtDt_Data_Parto.setEnabled(false);
-        TxtDt_Data_Parto.setFocusable(false);
-        TxtDt_Data_Parto.setFont(new java.awt.Font("Arial Black", 3, 14)); // NOI18N
 
         BTN_Salvar_Agendamento.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
         BTN_Salvar_Agendamento.setText("Salvar");
@@ -63,26 +82,60 @@ public class AgendamentoPartos extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel2.setText("Agendamento de Partos");
 
+        jcb_porca_agendamento_parto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel1.setText("Porca");
+
+        try {
+            dt_cobertura_agendamento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jButton1.setText("Preencher data");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        lblDataParto.setText("   /  /");
+        lblDataParto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TxtDt_Cob_Agendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TxtDt_Data_Parto, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 167, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(223, 223, 223))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BTN_Salvar_Agendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(145, 145, 145))
+                .addGap(112, 112, 112)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(77, 77, 77)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(278, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(BTN_Salvar_Agendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(dt_cobertura_agendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jcb_porca_agendamento_parto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(145, 145, 145))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(140, 140, 140)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDataParto, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,25 +143,148 @@ public class AgendamentoPartos extends javax.swing.JFrame {
                 .addGap(92, 92, 92)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(TxtDt_Cob_Agendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(TxtDt_Data_Parto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(BTN_Salvar_Agendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jcb_porca_agendamento_parto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dt_cobertura_agendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                .addComponent(BTN_Salvar_Agendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(80, 80, 80))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(lblDataParto, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    //botao de salvar
+    
+    
     private void BTN_Salvar_AgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_Salvar_AgendamentoActionPerformed
-        // TODO add your handling code here:
+        try{
+            boolean validacao = validarDados();
+            if(validacao){
+                objAgenda = new Agendamento();
+                objAgenda  = guardarDados();
+                controllerAgenda = new AgendamentoConttroler();
+                        
+                if(controllerAgenda.inserir(objAgenda)){
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Adicionado com sucesso");
+                    limparTela();
+                }else{
+                    CaixaDeDialogo.obterinstancia().exibirMensagem("Erro ao adicionar");
+                    
+                }
+                
+                
+            }
+            
+        
+        }catch(Exception e){
+            System.out.println("erro " +e.getMessage());
+        }
+        
     }//GEN-LAST:event_BTN_Salvar_AgendamentoActionPerformed
-
+    
+    private void limparTela(){
+        dt_cobertura_agendamento.setText("");
+        lblDataParto.setText("");
+        jcb_porca_agendamento_parto.setSelectedIndex(0);
+        
+    }
+    
+    private Agendamento guardarDados(){
+        objAgenda = new Agendamento();
+        try{
+        Combos c = (Combos) jcb_porca_agendamento_parto.getSelectedItem();
+        int codigo = Integer.parseInt(c.getCodigo());
+        
+        Date dataFormatada = new SimpleDateFormat("dd/MM/yyyy").parse(dt_cobertura_agendamento.getText());
+        String dataCerta = new SimpleDateFormat("yyyy-MM-dd").format(dataFormatada);
+        
+        
+        Date dataFormatada2 = new SimpleDateFormat("dd/MM/yyyy").parse(lblDataParto.getText());
+        String dataCerta2 = new SimpleDateFormat("yyyy-MM-dd").format(dataFormatada2);
+            System.out.println(""+codigo);
+        
+        objAgenda.setCd_porca(codigo);
+        objAgenda.setData_ins(dataCerta);
+        objAgenda.setData_parto(dataCerta2);
+        
+        return objAgenda;
+        
+        
+        
+        }catch(Exception e){
+            System.out.println("erro "+e.getMessage());
+            return null;
+        }
+                
+    }
+    
+    private boolean validarDados(){
+        if(dt_cobertura_agendamento.getText().equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Data de cobertura esta nula");
+            return false;
+        }
+        
+        if(lblDataParto.equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Data de parto esta nula");
+            return false;
+        }
+        Combos c = (Combos) jcb_porca_agendamento_parto.getSelectedItem();
+        if(c.equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Codigo da porca nao esta selecionado");
+            return false;
+        }
+        return true;
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(dt_cobertura_agendamento.equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Data de cobertura esta nula");
+                    
+            
+        }else{
+            
+            
+        Calendar c = Calendar.getInstance();
+        try{
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
+        Date data = formato.parse(dt_cobertura_agendamento.getText());
+        
+        
+        c.setTime(data);
+        c.add(Calendar.DAY_OF_MONTH, 110);
+        String dataCerta = new SimpleDateFormat("dd/MM/yyyy").format(c.getTime());
+        lblDataParto.setText(dataCerta);
+        System.out.println("datacerta"+dataCerta);
+        }catch(Exception e){
+            System.out.println("erro "+e.getMessage());
+        } 
+        
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    
+      
+    
+     /* */             
+    
     /**
      * @param args the command line arguments
      */
@@ -146,10 +322,13 @@ public class AgendamentoPartos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTN_Salvar_Agendamento;
-    private javax.swing.JFormattedTextField TxtDt_Cob_Agendamento;
-    private javax.swing.JFormattedTextField TxtDt_Data_Parto;
+    private javax.swing.JFormattedTextField dt_cobertura_agendamento;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JComboBox<String> jcb_porca_agendamento_parto;
+    private javax.swing.JLabel lblDataParto;
     // End of variables declaration//GEN-END:variables
 }

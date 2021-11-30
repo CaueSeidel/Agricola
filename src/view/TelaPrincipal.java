@@ -231,12 +231,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuUsuarios_tela_principal6ActionPerformed
 
     private void menuUsuarios_tela_principal3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsuarios_tela_principal3ActionPerformed
-        Abate telaA = new Abate();
+        AbateView telaA = new AbateView();
         telaA.setVisible(true);
     }//GEN-LAST:event_menuUsuarios_tela_principal3ActionPerformed
 
     private void menuUsuarios_tela_principal7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsuarios_tela_principal7ActionPerformed
-       Caliper telaC = new Caliper();
+       CaliperView telaC = new CaliperView();
        telaC.setVisible(true);
     }//GEN-LAST:event_menuUsuarios_tela_principal7ActionPerformed
 

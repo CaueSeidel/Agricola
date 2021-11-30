@@ -12,8 +12,8 @@ package model;
 public class Agendamento {
     
     private int codigo;
-    private String descricao;
-    private String data;
+    private String data_parto;
+    private String data_ins;
     private int cd_porca;
 
     public int getCodigo() {
@@ -24,20 +24,20 @@ public class Agendamento {
         this.codigo = codigo;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getData_parto() {
+        return data_parto;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setData_parto(String data_parto) {
+        this.data_parto = data_parto;
     }
 
-    public String getData() {
-        return data;
+    public String getData_ins() {
+        return data_ins;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setData_ins(String data_ins) {
+        this.data_ins = data_ins;
     }
 
     public int getCd_porca() {
@@ -47,6 +47,8 @@ public class Agendamento {
     public void setCd_porca(int cd_porca) {
         this.cd_porca = cd_porca;
     }
+
+    
     
     
     

@@ -226,10 +226,10 @@ public class Entrada_Porcas extends javax.swing.JFrame {
         
         
         Date dataFormatada = new SimpleDateFormat("dd/MM/yyyy").parse(TxtDT_Entrada_CadastroPorca.getText());
-            System.out.println(""+dataFormatada);
+            
        
         String dataCerta = new SimpleDateFormat("yyyy-MM-dd").format(dataFormatada);
-            System.out.println(""+dataCerta);
+            
         obj.setData_entrada(dataCerta);
             
        

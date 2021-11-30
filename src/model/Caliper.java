@@ -8,8 +8,8 @@ package model;
 public class Caliper {
     
     private int codigo;
-    private String data;
-    private String situacao;
+    private String dataMarcao;
+    private int situacao;
     private int cd_porca;
 
     public int getCodigo() {
@@ -21,18 +21,18 @@ public class Caliper {
     }
 
     public String getData() {
-        return data;
+        return dataMarcao;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setDataMarcao(String dataMarcao) {
+        this.dataMarcao = dataMarcao;
     }
 
-    public String getSituacao() {
+    public int getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(String situacao) {
+    public void setSituacao(int situacao) {
         this.situacao = situacao;
     }
 

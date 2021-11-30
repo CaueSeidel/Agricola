@@ -31,7 +31,7 @@ public class Cadastro_porcaConttroler {
         StringBuilder sql = new StringBuilder();
 
         //tem aquele outro campo tem de ver a posicao dele e tal se for not null etc
-        sql.append(" insert into cadastro_porca values (default , ? , ? , ?)");
+        sql.append(" insert into cadastro_porca values (default , ? , ? , ?, 'false')");
         
         stmt = con.prepareStatement(sql.toString());
         stmt.setInt(1, objeto.getCd_mossa());

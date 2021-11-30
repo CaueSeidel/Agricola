@@ -5,22 +5,38 @@
  */
 package view;
 
+import controller.CaliperConttroler;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import tools.Combos;
+import model.Caliper;
+import tools.CaixaDeDialogo;
 
 /**
  *
  * @author caue.seidel
  */
-public class Caliper extends javax.swing.JFrame {
+public class CaliperView extends javax.swing.JFrame {
 
     /**
-     * Creates new form Caliper
+     * Creates new form CaliperView
      */
+    Caliper objCaliper;
     Combos jcb_periodo;
-    public Caliper() {
+    CaliperConttroler caliperCon;
+    public CaliperView() {
         initComponents();
         preencheComboPeriodo();
+        preencheComboCdPorca();
+    }
+    private void preencheComboCdPorca(){
+        try{
+        jcb_periodo = new Combos(jCb_codigo_porca_Caliper);
+        jcb_periodo.PreencheCombo("select codigo, brinco from cadastro_porca");
+        }catch(SQLException e){
+            System.out.println("erro" +e);
+        }        
     }
     
     public void preencheComboPeriodo(){
@@ -48,12 +64,12 @@ public class Caliper extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        Txt_Codigo_Caliper = new javax.swing.JTextField();
         BTN_Salvar_Caliper = new javax.swing.JButton();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        dt_caliper = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         jCB_periodo_caliper = new javax.swing.JComboBox<>();
         jcb_situacao_caliper = new javax.swing.JComboBox<>();
+        jCb_codigo_porca_Caliper = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -69,14 +85,6 @@ public class Caliper extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel6.setText("Infome o Periodo");
 
-        Txt_Codigo_Caliper.setFont(new java.awt.Font("Arial Black", 2, 14)); // NOI18N
-        Txt_Codigo_Caliper.setText("jTextField1");
-        Txt_Codigo_Caliper.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Txt_Codigo_CaliperActionPerformed(evt);
-            }
-        });
-
         BTN_Salvar_Caliper.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
         BTN_Salvar_Caliper.setText("Salvar");
         BTN_Salvar_Caliper.addActionListener(new java.awt.event.ActionListener() {
@@ -85,7 +93,11 @@ public class Caliper extends javax.swing.JFrame {
             }
         });
 
-        jFormattedTextField1.setText("jFormattedTextField1");
+        try {
+            dt_caliper.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jLabel2.setText("Data");
 
@@ -97,6 +109,8 @@ public class Caliper extends javax.swing.JFrame {
         });
 
         jcb_situacao_caliper.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jCb_codigo_porca_Caliper.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,12 +130,12 @@ public class Caliper extends javax.swing.JFrame {
                                 .addGap(104, 104, 104)
                                 .addComponent(jLabel2))
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Txt_Codigo_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(99, 99, 99)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jCB_periodo_caliper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcb_situacao_caliper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jcb_situacao_caliper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jCb_codigo_porca_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(200, 200, 200)
+                                .addComponent(dt_caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(BTN_Salvar_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
@@ -135,10 +149,10 @@ public class Caliper extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_Codigo_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dt_caliper, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCb_codigo_porca_Caliper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -154,14 +168,102 @@ public class Caliper extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void Txt_Codigo_CaliperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_Codigo_CaliperActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Txt_Codigo_CaliperActionPerformed
-
+    //botao de salvar caliper
     private void BTN_Salvar_CaliperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_Salvar_CaliperActionPerformed
-        // TODO add your handling code here:
+        boolean validar = validarDados();
+        if(validar){
+            objCaliper = new Caliper();
+            
+            objCaliper = gurdarDados();
+            
+            caliperCon = new CaliperConttroler();
+            
+            if(caliperCon.inserir(objCaliper)){
+                CaixaDeDialogo.obterinstancia().exibirMensagem("Adicionado com sucesso");
+                limparTela();
+            }else{
+              CaixaDeDialogo.obterinstancia().exibirMensagem("Adicionado com sucesso");
+            }
+            
+        }
+        
+        
     }//GEN-LAST:event_BTN_Salvar_CaliperActionPerformed
+    private void limparTela(){
+        dt_caliper.setText("");
+        jCB_periodo_caliper.setSelectedIndex(0);
+        jCb_codigo_porca_Caliper.setSelectedIndex(0);
+        jcb_situacao_caliper.setSelectedIndex(0);
+        
+    }
+    private boolean validarDados(){
+        
+        if(dt_caliper.equals("")){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Data caliper esta nulla");
+            return false;
+        }
+        
+        
+         Combos c3 = (Combos) jCb_codigo_porca_Caliper.getSelectedItem();
+        int codigo = Integer.parseInt(c3.getCodigo());
+        
+        Combos c = (Combos) jCB_periodo_caliper.getSelectedItem();
+        int periodo = Integer.parseInt(c.getCodigo());
+        
+        Combos c2 = (Combos) jcb_situacao_caliper.getSelectedItem();
+        int situacao = Integer.parseInt(c.getCodigo());
+        
+        
+        if(codigo <= 0){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("Codigo da porca esta nulla");
+            return false;
+        }
+        
+        if( periodo <=0 ){
+            
+            CaixaDeDialogo.obterinstancia().exibirMensagem("periodo esta nullo");
+            return false;
+
+        }
+        if(situacao <= 0){
+            CaixaDeDialogo.obterinstancia().exibirMensagem("situacao esta nullo");
+            return false;
+        }
+        
+        
+        return true;
+        
+        
+    }
+    
+    private Caliper gurdarDados(){
+        try{
+        objCaliper = new Caliper();
+        
+        
+        
+        Date dataFormatada = new SimpleDateFormat("dd/MM/yyyy").parse(dt_caliper.getText());
+        String dataCerta = new SimpleDateFormat("yyyy-MM-dd").format(dataFormatada);
+        
+        Combos c = (Combos) jcb_situacao_caliper.getSelectedItem();
+        
+        Combos c2 = (Combos) jCb_codigo_porca_Caliper.getSelectedItem();
+       
+            System.out.println("c"+c.getCodigo());
+            System.out.println("c2"+c2.getCodigo());
+        
+        objCaliper.setCd_porca(Integer.parseInt(c2.getCodigo()));
+        objCaliper.setDataMarcao(dataCerta);
+        objCaliper.setSituacao(Integer.parseInt(c.getCodigo()));
+        
+        return objCaliper;
+        }catch(Exception e){
+            System.out.println("erro guardar dados caliper tela calipreView"+e );
+            return null;
+        }
+        
+    }
+    
     private void atualizarCombo(int sit){
         try{
             String sql = "select id_situacao, situacao from situacao where id_situacao ="+sit;
@@ -227,16 +329,16 @@ public class Caliper extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Caliper().setVisible(true);
+                new CaliperView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTN_Salvar_Caliper;
-    private javax.swing.JTextField Txt_Codigo_Caliper;
+    private javax.swing.JFormattedTextField dt_caliper;
     private javax.swing.JComboBox<String> jCB_periodo_caliper;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JComboBox<String> jCb_codigo_porca_Caliper;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

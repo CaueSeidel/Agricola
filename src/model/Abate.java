@@ -13,7 +13,7 @@ public class Abate {
     
     private int codigo;
     private String data_saida;
-    private String motivo_saida;
+    private int id_saida;
     private int cd_porca;
 
     public int getCodigo() {
@@ -32,12 +32,12 @@ public class Abate {
         this.data_saida = data_saida;
     }
 
-    public String getMotivo_saida() {
-        return motivo_saida;
+    public int getId_saida() {
+        return id_saida;
     }
 
-    public void setMotivo_saida(String motivo_saida) {
-        this.motivo_saida = motivo_saida;
+    public void setId_saida(int id_saida) {
+        this.id_saida = id_saida;
     }
 
     public int getCd_porca() {
@@ -47,6 +47,7 @@ public class Abate {
     public void setCd_porca(int cd_porca) {
         this.cd_porca = cd_porca;
     }
+
     
     
     
